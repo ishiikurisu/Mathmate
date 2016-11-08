@@ -62,10 +62,11 @@ selectedFolder = get(handles.editSearch, 'String');
 dirData = dir(selectedFolder);
 dirIndex = [dirData.isdir];
 fileList = {dirData(~dirIndex).name};
-for file = fileList
+limit = length(fileList);
+for n = 1:limit
+    fprintf('%s\n', strcat(selectedFolder, fileList{n}));
     % TODO Extract raw data from file
     % TODO Feed analysis object with raw data
-    disp(file);
 end
 
 % TODO Calculate results
