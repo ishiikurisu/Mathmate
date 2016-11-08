@@ -23,7 +23,6 @@ if nargout
 else
     gui_mainfcn(gui_State, varargin{:});
 end
-% End initialization code - DO NOT EDIT
 
 
 % --- Executes just before mathmate is made visible.
@@ -31,6 +30,7 @@ function mathmate_OpeningFcn(hObject, eventdata, handles, varargin)
 % Executes just before mathmate is made visible.
 handles.output = hObject;
 guidata(hObject, handles);
+
 
 % --- Outputs from this function are returned to the command line.
 function varargout = mathmate_OutputFcn(hObject, eventdata, handles)
@@ -42,6 +42,7 @@ function pushbuttonSearch_Callback(hObject, eventdata, handles)
 foldername = uigetdir;
 set(handles.editSearch, 'String', strcat(foldername, '\'));
 
+
 function editSearch_Callback(hObject, eventdata, handles)
 
 
@@ -49,9 +50,23 @@ function editSearch_Callback(hObject, eventdata, handles)
 function editSearch_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), ...
                    get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
+    set(hObject, 'BackgroundColor', 'white');
 end
 
 
 % --- Executes on button press in pushbuttonRun.
 function pushbuttonRun_Callback(hObject, eventdata, handles)
+% TODO Create object to store and analyze data
+
+selectedFolder = get(handles.editSearch, 'String');
+dirData = dir(selectedFolder);
+dirIndex = [dirData.isdir];
+fileList = {dirData(~dirIndex).name};
+for file = fileList
+    % TODO Extract raw data from file
+    % TODO Feed analysis object with raw data
+    disp(file);
+end
+
+% TODO Calculate results
+% TODO Display results
