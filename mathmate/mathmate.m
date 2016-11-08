@@ -64,8 +64,13 @@ dirIndex = [dirData.isdir];
 fileList = {dirData(~dirIndex).name};
 limit = length(fileList);
 for n = 1:limit
-    fprintf('%s\n', strcat(selectedFolder, fileList{n}));
     % TODO Extract raw data from file
+    filename = sprintf('%s', strcat(selectedFolder, fileList{n}));
+    fp = fopen(filename, 'r');
+    raw = fread(fp, '*char');
+    fprintf('---\n%s\n', raw);
+    % I think I will create an application just to
+    % separate these two fields for me ...
     % TODO Feed analysis object with raw data
 end
 
