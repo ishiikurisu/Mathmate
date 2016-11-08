@@ -39,7 +39,8 @@ varargout{1} = handles.output;
 
 % --- Executes on button press in pushbuttonSearch.
 function pushbuttonSearch_Callback(hObject, eventdata, handles)
-
+foldername = uigetdir;
+set(handles.editSearch, 'String', strcat(foldername, '\'));
 
 function editSearch_Callback(hObject, eventdata, handles)
 
