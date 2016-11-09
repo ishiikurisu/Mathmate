@@ -56,7 +56,8 @@ end
 
 % --- Executes on button press in pushbuttonRun.
 function pushbuttonRun_Callback(hObject, eventdata, handles)
-% TODO Create object to store and analyze data
+scores = [ ];
+IRAs = [ ];
 
 selectedFolder = get(handles.editSearch, 'String');
 dirData = dir(selectedFolder);
@@ -74,8 +75,19 @@ for n = 1:limit
         line = fgetl(fp);
     end
     stuff = map(@str2num, { fields{1}{3}, fields{2}{5} });
+    score = stuff{1};
+    IRA = stuff{2};
+    if isequal(length(IRA), 1)
+        scores(length(scores)+1) = score;
+        IRAs(length(IRAs)+1) = IRA;
+    end
+    fclose(fp);
     % TODO Feed analysis object with raw data
 end
 
 % TODO Calculate results
 % TODO Display results
+fprintf('scores\tIRAs\n');
+for n = 1:length(scores)
+    fprintf('%f\t%f\n', scores(n), IRAs(n));
+end
