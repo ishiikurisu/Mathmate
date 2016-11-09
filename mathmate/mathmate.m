@@ -70,6 +70,7 @@ dirIndex = [dirData.isdir];
 fileList = {dirData(~dirIndex).name};
 limit = length(fileList);
 for n = 1:limit
+    % Loading data
     filename = sprintf('%s', strcat(selectedFolder, fileList{n}));
     fp = fopen(filename, 'r');
     fields = { };
@@ -78,23 +79,26 @@ for n = 1:limit
         fields{end+1} = strsplit(line, sprintf('\t'));
         line = fgetl(fp);
     end
+    fclose(fp);
+
+    % Translating data from file to something useful
     stuff = map(@str2num, { fields{1}{3}, fields{2}{5} });
     score = stuff{1};
     IRA = stuff{2};
+
+    % Validating data sets for analysis
     if isequal(length(IRA), 1)
       if IRA >= 0 && IRA <= 5
           scores(length(scores)+1) = score;
           IRAs(length(IRAs)+1) = IRA;
       end
     end
-    fclose(fp);
 end
 
-% TODO Calculate results
+% Calculating results
 cc = corrcoef(IRAs, scores);
-cc(1, 2)
 
-% TODO Display results
+% Displaying results
 figure;
 scatter(IRAs, scores);
 text(10, 10, sprintf('Correlation = %f', cc(1, 2)));
