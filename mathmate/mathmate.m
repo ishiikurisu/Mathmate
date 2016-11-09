@@ -78,16 +78,16 @@ for n = 1:limit
     score = stuff{1};
     IRA = stuff{2};
     if isequal(length(IRA), 1)
-        scores(length(scores)+1) = score;
-        IRAs(length(IRAs)+1) = IRA;
+      if IRA >= 0 && IRA <= 5
+          scores(length(scores)+1) = score;
+          IRAs(length(IRAs)+1) = IRA;
+      end
     end
     fclose(fp);
-    % TODO Feed analysis object with raw data
 end
 
 % TODO Calculate results
+cc = corrcoef(IRAs, scores)
+figure;
+scatter(IRAs, scores)
 % TODO Display results
-fprintf('scores\tIRAs\n');
-for n = 1:length(scores)
-    fprintf('%f\t%f\n', scores(n), IRAs(n));
-end
