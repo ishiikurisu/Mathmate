@@ -73,21 +73,9 @@ for n = 1:limit
         fields{end+1} = strsplit(line, sprintf('\t'));
         line = fgetl(fp);
     end
-    disp('---');
-    drawFields(fields);
-    % I think I will create an application just to
-    % separate these two fields for me ...
+    stuff = map(@str2num, { fields{1}{3}, fields{2}{5} });
     % TODO Feed analysis object with raw data
 end
 
 % TODO Calculate results
 % TODO Display results
-
-function drawFields(fields)
-for m = 1:length(fields)
-  line = fields{m};
-  for n = 1:length(line)
-    fprintf('%s ; ', line{n});
-  end
-  fprintf('\n');
-end
