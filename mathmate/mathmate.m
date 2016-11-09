@@ -67,8 +67,14 @@ for n = 1:limit
     % TODO Extract raw data from file
     filename = sprintf('%s', strcat(selectedFolder, fileList{n}));
     fp = fopen(filename, 'r');
-    raw = fread(fp, '*char');
-    fprintf('---\n%s\n', raw);
+    fields = { };
+    line = fgetl(fp);
+    while ischar(line)
+        fields{end+1} = strsplit(line, sprintf('\t'));
+        line = fgetl(fp);
+    end
+    disp('---');
+    drawFields(fields);
     % I think I will create an application just to
     % separate these two fields for me ...
     % TODO Feed analysis object with raw data
@@ -76,3 +82,12 @@ end
 
 % TODO Calculate results
 % TODO Display results
+
+function drawFields(fields)
+for m = 1:length(fields)
+  line = fields{m};
+  for n = 1:length(line)
+    fprintf('%s ; ', line{n});
+  end
+  fprintf('\n');
+end
