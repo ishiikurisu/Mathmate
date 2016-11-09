@@ -56,16 +56,20 @@ end
 
 % --- Executes on button press in pushbuttonRun.
 function pushbuttonRun_Callback(hObject, eventdata, handles)
+% Executes on button press in pushbuttonRun. Will draw a plot relating the
+% expected result analysis.
+
+% Data structures to hold our data
 scores = [ ];
 IRAs = [ ];
 
+% Locating files on expected directory
 selectedFolder = get(handles.editSearch, 'String');
 dirData = dir(selectedFolder);
 dirIndex = [dirData.isdir];
 fileList = {dirData(~dirIndex).name};
 limit = length(fileList);
 for n = 1:limit
-    % TODO Extract raw data from file
     filename = sprintf('%s', strcat(selectedFolder, fileList{n}));
     fp = fopen(filename, 'r');
     fields = { };
@@ -87,7 +91,12 @@ for n = 1:limit
 end
 
 % TODO Calculate results
-cc = corrcoef(IRAs, scores)
-figure;
-scatter(IRAs, scores)
+cc = corrcoef(IRAs, scores);
+cc(1, 2)
+
 % TODO Display results
+figure;
+scatter(IRAs, scores);
+text(10, 10, sprintf('Correlation = %f', cc(1, 2)));
+xlabel('Academic performance');
+ylabel('Procastination score');
