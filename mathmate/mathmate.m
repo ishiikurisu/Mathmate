@@ -82,7 +82,7 @@ for n = 1:limit
     fclose(fp);
 
     % Translating data from file to something useful
-    stuff = map(@str2num, { fields{1}{3}, fields{2}{5} });
+    stuff = map(@str2num, { fields{1}{3}, strreplace(fields{2}{5}, ',', '.') });
     score = stuff{1};
     IRA = stuff{2};
 
