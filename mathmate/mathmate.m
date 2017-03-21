@@ -96,7 +96,7 @@ for n = 1:limit
 end
 
 % Calculating results
-cc = corrcoef(IRAs, scores);
+cc = corrcoef(IRAs, scores)
 
 % Displaying results
 figure;
