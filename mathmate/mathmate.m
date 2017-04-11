@@ -96,7 +96,8 @@ for n = 1:limit
 end
 
 % Calculating results
-cc = corrcoef(IRAs, scores)
+cc = corrcoef(IRAs, scores);
+fprintf('N = %d\nCC = %f\n', limit, cc(1, 2));
 
 % Displaying results
 figure;
