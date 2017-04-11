@@ -69,6 +69,7 @@ dirData = dir(selectedFolder);
 dirIndex = [dirData.isdir];
 fileList = {dirData(~dirIndex).name};
 limit = length(fileList);
+N = 0;
 for n = 1:limit
     % Loading data
     filename = sprintf('%s', strcat(selectedFolder, fileList{n}));
@@ -89,6 +90,7 @@ for n = 1:limit
     % Validating data sets for analysis
     if isequal(length(IRA), 1)
       if IRA >= 0 && IRA <= 5
+          N = N+1;
           scores(length(scores)+1) = score;
           IRAs(length(IRAs)+1) = IRA;
       end
@@ -97,7 +99,7 @@ end
 
 % Calculating results
 cc = corrcoef(IRAs, scores);
-fprintf('N = %d\nCC = %f\n', limit, cc(1, 2));
+fprintf('N = %d\nCC = %f\n', N, cc(1, 2));
 
 % Displaying results
 figure;
